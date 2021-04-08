@@ -1,12 +1,15 @@
 <template>
-<div>main page</div>
+<div>
+  hello {{name}}
+  my name is minthing
+</div>
 </template>
 
 <script>
 export default {
   data(){
     return {
-      name : 'Nuxt.js',
+      name : 'minthing',
     }
   }
 }
