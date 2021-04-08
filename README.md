@@ -7,7 +7,7 @@
 * 로컬에 vue와 nuxt 설치하기
 * 참고자료 : [vue.js](https://kr.vuejs.org/v2/guide/index.html) | [nuxt.js](https://ko.nuxtjs.org/)
 
-##### 210407(목)
+##### 210408(목)
 * 역시 atom보다 vscode가 편하다. vue 스타일 템플릿 찾느라 하루를 날렸는데...
 * 폴더 구조와 경로에 따라 페이지 트리 생성
 * pages나 layouts와 같은 폴더명은 디폴트임
