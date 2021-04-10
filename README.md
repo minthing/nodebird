@@ -23,7 +23,7 @@
 <template> // default.vue 안의 내용
   <div>
     <nav>
-    <nuxt-link to="/">Home</nuxt-link>
+    <nuxt-link to="/">Home</nuxt-link> // 다음 페이지 미리 로딩하는 기능을 포함 router-link 말고 이거 사용
     <nuxt-link to="/profile">Profile</nuxt-link>
     <nuxt-link to="/signup">Signup</nuxt-link>
     </nav>
