@@ -6,6 +6,7 @@
 
 <script>
 export default {
+    layout: 'admin', // 편의를 위한 layout 확장
     head() {
         return {title : '회원가입'}
     },
