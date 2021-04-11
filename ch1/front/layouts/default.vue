@@ -1,6 +1,6 @@
 <template>
   <v-app> <!-- 꼭 써줘야 함 -->
-    <div>
+    <nav>
       <v-toolbar dark color="green">
         <v-toolbar-title>
           <nuxt-link to="/">
@@ -14,15 +14,23 @@
           <v-btn text nuxt to="/signup">회원가입</v-btn>
         </v-toolbar-items>
       </v-toolbar>
-    </div>
+    </nav>
+    <v-row no-gutters> <!-- padding 삭제 -->
+      <v-col cols="12" md="4"><login-form /></v-col>
+      <v-col cols="12" md="8"><nuxt/></v-col> <!-- nuxt로 각 page 불러옴 -->
+    </v-row>
   </v-app>
 </template>
 
 <script>
 
+import loginForm from '~/components/loginForm.vue';
+
 export default {
 
-components: {}
+components: {
+  loginForm,
+}
 
 };
 

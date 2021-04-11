@@ -19,6 +19,8 @@
 
 * 페이지별로 공통되는 요소는 `layouts/defalut.vue`에 몰아넣고 아래애 `<nuxt />`를 통해 개별 페이지 내용을 불러온다.
 
+* The <Nuxt> component is the component you use to display your page components. Basically, this component gets replaced by what is inside your page components depending on the page that is being shown. Therefore it is important that you add the <Nuxt> component to your layouts.
+
 ```vue.js
 <template> // default.vue 안의 내용
   <div>
@@ -34,3 +36,13 @@
 
 ##### 210411(토)
 * mdi-icon : https://materialdesignicons.com/
+
+#### 210412(일)
+* 화면 분할 cols값이 md의 총합과 같지 않으면 작동 안함. (참고 : https://vuetifyjs.com/en/components/grids/)
+
+```
+    <v-row>
+      <v-col cols="12" md="4">왼쪽</v-col>
+      <v-col cols="12" md="8">오른쪽</v-col>
+    </v-row>
+```
