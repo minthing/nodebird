@@ -37,7 +37,7 @@
 ##### 210411(토)
 * mdi-icon : https://materialdesignicons.com/
 
-#### 210412(일)
+##### 210412(일)
 * 화면 분할 cols값이 md의 총합과 같지 않으면 작동 안함. (참고 : https://vuetifyjs.com/en/components/grids/)
 
 ```
@@ -46,3 +46,9 @@
       <v-col cols="12" md="8">오른쪽</v-col>
     </v-row>
 ```
+
+##### 210413(월)
+* `v-model`을 통한 양방향 바인딩 (뷰 데이터 속성에 연결) : https://joshua1988.github.io/web-development/vuejs/v-model-usage/
+* 폼 검증 : https://jeonghwan-kim.github.io/2018/05/31/vue-form-validation.html
+* 원래 구현해야 하는데 vuetify가 알아서 만들어줌. (:rules="emailRules")
+* props: https://kr.vuejs.org/v2/guide/components-props.html
