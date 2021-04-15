@@ -15,6 +15,8 @@
         </v-toolbar-items>
       </v-toolbar>
     </nav>
+    <div>{{name}}</div>
+    <v-btn @click="onChangeName">바이바이</v-btn>
     <v-row no-gutters> <!-- padding 삭제 -->
       <v-col cols="12" md="4"><login-form /></v-col>
       <v-col cols="12" md="8"><nuxt/></v-col> <!-- nuxt로 각 page 불러옴 -->
@@ -30,6 +32,16 @@ export default {
 
 components: {
   loginForm,
+},
+computed:{
+  name(){
+    return this.$store.state.posts.name;
+  }
+},
+methods:{
+  onChangeName(){
+    this.$store.commit('posts/bye')
+  }
 }
 
 };
