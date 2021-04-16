@@ -1,5 +1,5 @@
 <template>
-<v-container> <!-- padding -->
+<v-container v-if="!me"> <!-- padding / user state me가 없으면! 보임 -->
     <v-card>
         <v-form ref="form" v-model="valid" @submit.prevent="onSubmitForm">
             <v-container>
@@ -11,16 +11,32 @@
         </v-form>
     </v-card>
 </v-container>
-
+<v-container v-else>
+  <v-card>
+    {{me.nickname}}님, 로그인 되었습니당 🕊
+  </v-card>
+  <v-btn @click="onLogOut">로그아웃</v-btn>
+</v-container>
 </template>
-
 <script>
 export default {
   methods:{
-    onSubmitForm(){
-      this.$refs.form.validate();
-      console.log(this.valid);
+    onSubmitForm(){ // action은 비동기 이므로 위와 아래의 실행완료 시점이 다를 수 있음
+        if (this.$refs.form.validate()) {
+          this.$store.dispatch('user/logIn', {
+            nickname: 'minthing',
+            email: this.email,
+          });
+      }
+    },
+    onLogOut(){
+      this.$store.dispatch('user/logOut');
     }
+  },
+  computed:{ // store 데이터 불러옴
+  me(){
+    return this.$store.state.user.me
+  }
   },
   data(){
     return {

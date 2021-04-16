@@ -55,3 +55,6 @@
 
 ##### 210415(목)
 * store: https://uxgjs.tistory.com/149
+
+##### 2104016(금)
+* actions(비동기 작업) : https://vuex.vuejs.org/kr/guide/actions.html
