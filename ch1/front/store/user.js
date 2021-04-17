@@ -1,5 +1,5 @@
 export const state = () => ({
-    me :{},
+    me :{nickname:'minthing'},
   })
   
   export const mutations = { // 일반 객체로 만들어야 함
