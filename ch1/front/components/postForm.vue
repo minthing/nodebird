@@ -41,11 +41,13 @@ export default {
         ...mapState('user', ['me']),
     },
     methods:{
-        onChangeTextarea(){
+        onChangeTextarea(value){
+            if(this.value){
             this.content='',
             this.hideDetails=true,
             this.success=false, // 초기화
             this.successMessages=''
+            }
         },
         onSubmitForm(){
             if(this.$refs.form.validate()){

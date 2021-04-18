@@ -5,6 +5,9 @@ export const state = () => ({
   export const mutations = { // 일반 객체로 만들어야 함
     setMe(state, payload) { // payload : state를 바꿀 수 있게 해줌
       state.me = payload; // 비동기 작업이 있으면 안됨! ajax 요청도 안됨!
+    },
+    changeNickname(state, payload){
+      state.me.nickname = payload.nickname
     }
   }
 
@@ -23,6 +26,9 @@ export const actions = { //비동기적 작업을 위해 actions를 사용함
     logOut({commit}, payload){
       commit('setMe', null);
 
+    },
+    changeNickname({commit}, payload){
+      commit('changeNickname', payload)
     }
 
 }
