@@ -42,6 +42,7 @@ export default {
     },
     methods:{
         onChangeTextarea(){
+            this.content='',
             this.hideDetails=true,
             this.success=false, // 초기화
             this.successMessages=''
