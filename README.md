@@ -1,4 +1,4 @@
-#Vue.js + Node.js로 트위터 클론하기 🕊
+# Vue.js + Node.js로 트위터 클론하기 🕊
 
 
 ### daily progress
@@ -47,7 +47,7 @@
     </v-row>
 ```
 
-##### 210412(월)
+##### 210412(월)
 * `v-model`을 통한 양방향 바인딩 (뷰 데이터 속성에 연결) : https://joshua1988.github.io/web-development/vuejs/v-model-usage/
 * 폼 검증 : https://jeonghwan-kim.github.io/2018/05/31/vue-form-validation.html
 * 원래 구현해야 하는데 vuetify가 알아서 만들어줌. (:rules="emailRules")
