@@ -14,11 +14,11 @@
     </v-card>
     <v-card>
       <v-subheader>My followings</v-subheader>
-      <follow-list />
+      <follow-list :user="followingList" :remove="removeFollowing" />
     </v-card>
     <v-card>
       <v-subheader>My followers</v-subheader>
-      <follow-list />
+      <follow-list :user="followerList" :remove="removeFollower"/>
     </v-card>
   </v-container>
 </div>
@@ -40,10 +40,28 @@ export default {
       ]
     }
   },
+  computed:{
+    followerList(){
+      return this.$store.state.user.followerList
+    },
+    followingList(){
+      return this.$store.state.user.followingList
+    }
+  },
   methods:{
     onChangeNickname(){
       this.$store.dispatch('user/changeNickname',{
         nickname:this.nickname
+      })
+    },
+    removeFollowing(id){
+      this.$store.dispatch('user/removeFollowing',{
+        id:id
+      })
+    },
+    removeFollower(id){
+      this.$store.dispatch('user/removeFollower',{
+        id:id
       })
     }
   }

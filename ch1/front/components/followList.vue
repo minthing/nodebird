@@ -1,14 +1,27 @@
 <template>
-<v-list>
-    <v-list-item><span>arjuna</span><v-icon>mdi-minus-circle-outline</v-icon></v-list-item>
-    <v-list-item><span>karna</span><v-icon>mdi-minus-circle-outline</v-icon></v-list-item>
-    <v-list-item><span>kama</span><v-icon>mdi-minus-circle-outline</v-icon></v-list-item>
-</v-list>
+<v-list-tile>
+    <ul>
+      <li>
+        <li v-for="u in user" :key="u.id">
+             <span>{{u.nickname}}</span><v-icon @click="remove(user.id)">mdi-minus-circle-outline</v-icon>
+        </li>
+    </ul>
+</v-list-tile>
 
 </template>
 
 <script>
 export default {
+    props:{
+        user:{
+            type:Array,
+            required:true
+        },
+        remove:{
+            type:Function,
+            required:true
+        }
+    },
     data(){
         return {
             
