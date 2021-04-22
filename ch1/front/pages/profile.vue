@@ -48,6 +48,7 @@ export default {
       return this.$store.state.user.followingList
     }
   },
+  middleware:'authenticated',
   methods:{
     onChangeNickname(){
       this.$store.dispatch('user/changeNickname',{

@@ -18,6 +18,20 @@
 
 <script>
 export default {
+    computed: {
+      me() {
+        return this.$store.state.user.me;
+      }
+    },
+    watch: {
+      me(value) {
+        if (value) {
+          this.$router.push({
+            path: '/',
+          });
+        }
+      }
+    },
   methods:{
     onSubmitForm(){
         if (this.$refs.form.validate()) {
@@ -63,7 +77,8 @@ export default {
         v => !!v || '약관에 동의해야 가입 가능합니다.',
       ] 
     }
-  }
+  },
+  middleware:'anonymous',
 }
 </script>
 
