@@ -13,8 +13,15 @@ export const state = () => ({
       id:2, nickname:'two'
     },{
       id:3, nickname: 'three'
-    }]
+    }],
+    hasMoreFollower:true,
+    hasMoreFollowing:true
   })
+
+  const totalFollowers = 8;
+  const totalFollowings = 6;
+  const limit = 3;
+
   
   export const mutations = { // 일반 객체로 만들어야 함
     setMe(state, payload) { // payload : state를 바꿀 수 있게 해줌
@@ -36,9 +43,26 @@ export const state = () => ({
     removeFollower(state, payload){
       const index = state.followerList.findIndex(v => v.id === payload.id);
       state.followerList.splice(index, 1)
-    }
-
-  }
+    },
+    loadFollowings(state) {
+      const diff = totalFollowings - state.followingList.length;
+      const fakeUsers = Array(diff > limit ? limit : diff).fill().map(v => ({
+        id: Math.random().toString(),
+        nickname: Math.floor(Math.random() * 1000),
+      }));
+      state.followingList = state.followingList.concat(fakeUsers);
+      state.hasMoreFollowing = fakeUsers.length === limit;
+    },
+    loadFollowers(state) {
+      const diff = totalFollowers - state.followerList.length;
+      const fakeUsers = Array(diff > limit ? limit : diff).fill().map(v => ({
+        id: Math.random().toString(),
+        nickname: Math.floor(Math.random() * 1000),
+      }));
+      state.followerList = state.followerList.concat(fakeUsers);
+      state.hasMoreFollower = fakeUsers.length === limit;
+    },
+  };
 
 export const actions = { //비동기적 작업을 위해 actions를 사용함
     // context object 안에 있는 것들
@@ -70,6 +94,15 @@ export const actions = { //비동기적 작업을 위해 actions를 사용함
     },
     removeFollower({commit}, payload){
       commit('removeFollower', payload)
-    }
-
+    },
+    loadFollowers({ commit, state }, payload) {
+      if (state.hasMoreFollower) {
+        commit('loadFollowers');
+      }
+    },
+    loadFollowings({ commit, state }, payload) {
+      if (state.hasMoreFollowing) {
+        commit('loadFollowings');
+      }
+    },
 }

@@ -15,10 +15,12 @@
     <v-card>
       <v-subheader>My followings</v-subheader>
       <follow-list :user="followingList" :remove="removeFollowing" />
+      <v-btn @click="loadMoreFollowings" style="width:100%" dark color="blue" v-if="hasMoreFollowing">more</v-btn>
     </v-card>
     <v-card>
       <v-subheader>My followers</v-subheader>
       <follow-list :user="followerList" :remove="removeFollower"/>
+      <v-btn @click="loadMoreFollowers" style="width:100%" dark color="blue" v-if="hasMoreFollower">more</v-btn>
     </v-card>
   </v-container>
 </div>
@@ -46,6 +48,12 @@ export default {
     },
     followingList(){
       return this.$store.state.user.followingList
+    },
+    hasMoreFollowing(){
+      return this.$store.state.user.hasMoreFollowing
+    },
+    hasMoreFollower(){
+      return this.$store.state.user.hasMoreFollower
     }
   },
   middleware:'authenticated',
@@ -64,8 +72,18 @@ export default {
       this.$store.dispatch('user/removeFollower',{
         id:id
       })
-    }
-  }
+    },
+    loadMoreFollowers() {
+      this.$store.dispatch('user/loadFollowers');
+    },
+    loadMoreFollowings() {
+      this.$store.dispatch('user/loadFollowings');
+    },
+  },
+    fetch({ store }) {
+    store.dispatch('user/loadFollowers');
+    store.dispatch('user/loadFollowings');
+  },
 }
 </script>
 
