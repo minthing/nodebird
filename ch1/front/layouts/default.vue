@@ -9,7 +9,11 @@
         </v-toolbar-title>
         <v-spacer></v-spacer> <!-- 빈칸 -->
         <v-toolbar-items>
-          <v-text-field label="검색" hide-details prepend-icon="mdi-magnify" /> <!-- input tag / hide-details : 숨어있는 칸을 없앰 -->
+          <v-form @submit.prevent="onSearchHashtag">
+            <div :style="{ display: 'flex', height: '100%', alignItems: 'center' }">
+              <v-text-field v-model="hashtag" label="검색" hide-details prepend-icon="mdi-magnify" /> <!-- input tag / hide-details : 숨어있는 칸을 없앰 -->
+            </div>
+          </v-form>
           <v-btn text nuxt to="/profile">프로필</v-btn> <!-- nuxt 붙이면 nuxt 링크  / text 클릭 가능한 텍스트필드 -->
           <v-btn text nuxt to="/signup">회원가입</v-btn>
         </v-toolbar-items>
@@ -41,6 +45,17 @@ computed:{
 methods:{
   onChangeName(){
     this.$store.commit('posts/bye')
+  },
+  onSearchHashtag(){
+    this.$router.push({
+      path:`/hashtag/${this.hashtag}`,
+    });
+    this.hashtag='';
+  }
+},
+data(){
+  return {
+    hashtag:''
   }
 }
 
@@ -62,7 +77,6 @@ a {
 display: inline-block;
 text-decoration: none;
 color: inherit;
-
 }
 
 </style>

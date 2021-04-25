@@ -58,3 +58,6 @@
 
 ##### 2104016(금)
 * actions(비동기 작업) : https://vuex.vuejs.org/kr/guide/actions.html
+
+##### 210425(일)
+* scrollToTop: https://ko.nuxtjs.org/docs/2.x/components-glossary/pages-scrolltotop/
