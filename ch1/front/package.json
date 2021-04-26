@@ -15,10 +15,10 @@
     "axios": "^0.21.1",
     "nuxt": "^2.15.4",
     "vue": "^2.6.12",
-    "vuetify": "^2.4.9"
+    "vuetify": "^2.4.11"
   },
   "devDependencies": {
-    "eslint": "^7.24.0",
+    "eslint": "^7.25.0",
     "eslint-plugin-vue": "^7.9.0"
   }
 }
