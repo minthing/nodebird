@@ -72,7 +72,7 @@ export const actions = { //비동기적 작업을 위해 actions를 사용함
     signUp({commit, state}, payload){
         // 서버에 회원가입 요청을 보냄 payload에 회원정보 들어감
         console.log(this.$axios);
-        this.$axios.post('/user', {
+        this.$axios.post('http://localhost:3085/user', {
           email:payload.email, nickname:payload.nickname, password:payload.password
         }); //rest api
         commit('setMe', payload);

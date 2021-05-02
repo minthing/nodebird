@@ -1,9 +1,12 @@
 const express = require('express');
+const cors = require('cors');
 const db = require('./models');
 const app = express();
+const bcrypt = require('bcrypt');
 
 db.sequelize.sync();
 
+app.use(cors('http://localhost:3000'));
 app.use(express.json()); // 미들웨어
 app.use(express.urlencoded({extended:false}));
 
@@ -15,10 +18,10 @@ app.post('/user', async (req, res, next)=>{
 try{
     const newUser = await db.User.create({
         email: req.body.email,
-        password: req.body.password,
+        password: await bcrypt.hash(req.body.password, 12),
         nickname: req.body.nickname
     })
-    res.status(200).json(newUser); // json으로 응답함
+    res.status(201).json(newUser); // json으로 응답함
 } catch(err){
     console.log(err);
     next(err);
