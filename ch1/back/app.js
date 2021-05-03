@@ -16,12 +16,22 @@ app.get('/', (req, res) => { // http GET 멸령
 
 app.post('/user', async (req, res, next)=>{
 try{
+    const hash = await bcrypt.hash(req.body.password, 12);
+    const existUser = db.User.findOne({
+        email: await req.body.email,
+    })
+    if(existUser){
+        return res.status(403).json({
+            errorCode:403,
+            message: '이미 회원가입이 되어 있으십니당'
+        });
+    }
     const newUser = await db.User.create({
         email: req.body.email,
-        password: await bcrypt.hash(req.body.password, 12),
+        password: hash,
         nickname: req.body.nickname
     })
-    res.status(201).json(newUser); // json으로 응답함
+    return res.status(201).json(newUser); // json으로 응답함
 } catch(err){
     console.log(err);
     next(err);
