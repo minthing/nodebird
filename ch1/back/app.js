@@ -4,7 +4,7 @@ const db = require('./models');
 const app = express();
 const bcrypt = require('bcrypt');
 
-db.sequelize.sync();
+db.sequelize.sync({force:true}); //force:true -> 실전에서는 마이그레이션
 
 app.use(cors('http://localhost:3000'));
 app.use(express.json()); // 미들웨어
