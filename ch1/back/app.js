@@ -8,7 +8,6 @@ const passportConfig = require('./passport');
 const passport = require('passport');
 const session = require('express-session');
 const cookie = require('cookie-parser');
-const cookie = require('cookie-parser');
 const morgan = require('morgan');
 
 db.sequelize.sync({force:true}); //force:true -> 실전에서는 마이그레이션
@@ -35,7 +34,9 @@ app.post('/user', async (req, res, next)=>{
 try{
     const hash = await bcrypt.hash(req.body.password, 12);
     const existUser = db.User.findOne({
-        email: await req.body.email,
+        where:{
+            email: await req.body.email,
+        }
     })
     if(existUser){
         return res.status(403).json({
@@ -57,12 +58,28 @@ try{
 })
 
 app.post('/user/login', (req, res) => {
-    req.body.email,
-    req.body.password,
-    await db.User.findOne(); // 이메일과 패스워드 검사
-    user[cookie] = '' //userInfo : 쿠키를 키로 받아서 유저 정보 저장하기
-})
+    password.authenticate('localStrategy', (error, user, info)=>{ // 로그인 할 때 localStratey 실행 => done 콜백 함수의 인수가 3개 에러, 성공, 실패의 결과를 다음 인수로 받음
+        if(error){
+            console.error(error);
+            return next(error); //에러 넘겨버리기
+        }
+        if(info){
+            return res.status(401).send(info.reason);
+        }
 
+        return req.login(user, async (error) => {
+            if(error){
+                console.error(error);
+                return next(error)
+            }
+            return res.json(user);
+        }) // passport.initialize에서 만들어줌 -> session에 사용자 정보 저장해줌 how :serializeUser
+    })(req, res, next);
+    // req.body.email,
+    // req.body.password,
+    // await db.User.findOne(); // 이메일과 패스워드 검사
+    // user[cookie] = '' //userInfo : 쿠키를 키로 받아서 유저 정보 저장하기
+})
 app.listen(3085, ()=>{ 
     console.log(`welcome to backend port number ${3085}`);
 })
