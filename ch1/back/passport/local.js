@@ -18,7 +18,7 @@ module.exports = () => {
             if(result){
                 return done(null, exUser);
             } else {
-                return done(null, false, {reason:'비밀번호가 틀립니다.'});
+                return done(null, false, {reason:'비밀번호가 틀립니다.'}); // 콜백함수 (에러, 성공, 실패)
             }
         } catch(err){
             console.error(err);

@@ -82,6 +82,16 @@ export const actions = { //비동기적 작업을 위해 actions를 사용함
         commit('setMe', payload);
     },
     logIn({commit}, payload){
+      console.log(this.$axios);
+      this.$axios.post('http://localhost:3085/user/login', {
+        email:payload.email, password:payload.password
+      },{
+        withCredentials : true
+      }).then((data) => { // promise
+        console.log(data);
+      }).catch((error)=>{
+        console.error(error);
+      });
       commit('setMe', payload);
     },
     logOut({commit}, payload){

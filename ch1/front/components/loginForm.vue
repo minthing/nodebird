@@ -24,7 +24,7 @@ export default {
     onSubmitForm(){ // action은 비동기 이므로 위와 아래의 실행완료 시점이 다를 수 있음
         if (this.$refs.form.validate()) {
           this.$store.dispatch('user/logIn', {
-            nickname: 'minthing',
+            password: this.password,
             email: this.email,
           });
       }
