@@ -1,5 +1,5 @@
 export const state = () => ({
-    me :{nickname:'minthing'},
+    me :null,
     followingList:[{
       id:1, nickname:'one'
     },{
@@ -74,12 +74,15 @@ export const actions = { //비동기적 작업을 위해 actions를 사용함
         console.log(this.$axios);
         this.$axios.post('http://localhost:3085/user', {
           email:payload.email, nickname:payload.nickname, password:payload.password
+        }).then((data) => { // promise
+          console.log(data);
+        }).catch((error)=>{
+          console.error(error);
         }); //rest api
         commit('setMe', payload);
     },
     logIn({commit}, payload){
       commit('setMe', payload);
-
     },
     logOut({commit}, payload){
       commit('setMe', null);
