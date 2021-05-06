@@ -9,7 +9,7 @@ module.exports = () =>{
     });
     passport.deserializeUser(async (id, done)=>{
         try{
-            const user = await db.User.findOne({where:{id}});
+            const user = await db.User.findOne({where:{id}}); // 백엔드는 db접속을 최소화 함
             return done(null, user);
         } catch(err) {
             console.log(err);
