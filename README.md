@@ -61,3 +61,6 @@
 
 ##### 210425(일)
 * scrollToTop: https://ko.nuxtjs.org/docs/2.x/components-glossary/pages-scrolltotop/
+
+##### 210601(화)
+* `npm i multer` : formData 해석을 위해 설치

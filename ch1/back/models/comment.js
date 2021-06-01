@@ -1,6 +1,6 @@
 
 module.exports = (sequelize, DataTypes) => {
-    const Comment = sequelize.define('Post', { //테이블명은 posts가됨
+    const Comment = sequelize.define('Comment', { //테이블명은 posts가됨
         content: {
             type:DataTypes.TEXT, // 길이 특정이 불가능한 매우 긴 글
             allowNull:false,
