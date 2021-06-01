@@ -34,6 +34,12 @@ export const state = () => ({
       }));
       state.mainPosts = state.mainPosts.concat(fakePosts);
       state.hasMorePost = fakePosts.length === limit; // 10의 배수가 아니면 남은 포스트 갯수가 10 이하.. 이므로 마지막 페이지임
+    },
+    concatImagePaths(state, payload) {
+      state.imagePaths = state.imagePaths.concat(payload);
+    },
+    removeImagePath(state, payload) {
+      state.imagePaths.splice(payload, 1);
     }
   }
 
@@ -53,5 +59,16 @@ export const state = () => ({
       if(state.hasMorePost){ // 쓸데없는 요청 막기
         commit('loadPosts', payload);
       }
+    },
+    uploadImages({ commit }, payload) {
+      this.$axios.post('http://localhost:3085/post/images', payload, {
+        withCredentials: true,
+      })
+        .then((res) => {
+          commit('concatImagePaths', res.data);
+        })
+        .catch(() => {
+  
+        })
     }
   }
