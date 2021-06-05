@@ -20,7 +20,7 @@ app.use(cors({
   origin: 'http://localhost:3000',
   credentials: true,
 }));
-app.use('/', express.static('uploads'));
+app.use('/', express.static('uploads')); //프론트에서 업로드 폴더에 접근 가능
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookie('cookiesecret'));
