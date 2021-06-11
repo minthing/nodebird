@@ -1,4 +1,3 @@
-
 const express = require('express');
 const multer = require('multer');
 const path = require('path');
@@ -26,9 +25,11 @@ router.post('/images', isLoggedIn, upload.array('image'), (req, res) => {
   res.json(req.files.map(v => v.filename));
 });
 
+
+//무슨말이야 ㅠㅠ
 router.post('/', isLoggedIn, async (req, res, next) => { // POST /post
   try {
-    const hashtags = req.body.content.match(/#[^\s#]+/g);
+    const hashtags = req.body.content.match(/#[^\s#]+/g); //해시태그 추출
     const newPost = await db.Post.create({
       content: req.body.content,
       UserId: req.user.id,
