@@ -12,7 +12,7 @@ const userRouter = require('./routes/user');
 const postRouter = require('./routes/post');
 const app = express();
 
-db.sequelize.sync();
+db.sequelize.sync({force:true});
 passportConfig();
 
 app.use(morgan('dev'));
