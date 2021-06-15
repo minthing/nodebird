@@ -16,24 +16,28 @@ export const mutations = {
     const index = state.mainPosts.findIndex(v => v.id === payload.id);
     state.mainPosts.splice(index, 1);
   },
+  loadComments(state, payload){
+    const index = state.mainPosts.findIndex(v => v.id === payload.postId);
+    state.mainPosts[index].Comments = payload;
+  },
   addComment(state, payload) {
     const index = state.mainPosts.findIndex(v => v.id === payload.postId);
     state.mainPosts[index].Comments.unshift(payload);
   },
   loadPosts(state) {
-    const diff = totalPosts - state.mainPosts.length; // 아직 안 불러온 게시글 수
-    const fakePosts = Array(diff > limit ? limit : diff).fill().map(v => ({
-      id: Math.random().toString(),
-      User: {
-        id: 1,
-        nickname: 'minthing',
-      },
-      content: `안녕ㅎ하세용 ${Math.random()}`,
-      Comments: [],
-      Images: [],
-    }));
-    state.mainPosts = state.mainPosts.concat(fakePosts);
-    state.hasMorePost = fakePosts.length === limit;
+    // const diff = totalPosts - state.mainPosts.length; // 아직 안 불러온 게시글 수
+    // const fakePosts = Array(diff > limit ? limit : diff).fill().map(v => ({
+    //   id: Math.random().toString(),
+    //   User: {
+    //     id: 1,
+    //     nickname: 'minthing',
+    //   },
+    //   content: `안녕ㅎ하세용 ${Math.random()}`,
+    //   Comments: [],
+    //   Images: [],
+    // }));
+    state.mainPosts = state.mainPosts.concat(payload);
+    state.hasMorePost = payload.length === limit;
   },
   concatImagePaths(state, payload) {
     state.imagePaths = state.imagePaths.concat(payload);
@@ -59,15 +63,39 @@ export const actions = {
 
       });
   },
+  loadComments({commit,state}, payload){
+    this.$axios.get(`http://localhost:3085/posts/${payload.postId}/comments`)
+    .then((res)=>{
+      commit('loadComments', res.data)
+    }).catch(()=>{
+
+    })
+  },
   remove({ commit }, payload) {
     commit('removeMainPost', payload);
   },
   addComment({ commit }, payload) {
-    commit('addComment', payload);
+    this.$axios.post(`http://localhost:3085/posts/${payload.postId}/comment`,{
+      content:payload.content,
+    },{
+      withCredentials:true
+    })
+    .then((res)=>{
+      commit('addComment', red.data);
+    })
+    .catch(()=>
+    {
+    })
   },
   loadPosts({ commit, state }, payload) {
     if (state.hasMorePost) {
-      commit('loadPosts');
+      this.$axios.post(`http://localhost:3085/posts?offset=${state.mainPosts.length}&limit=10`, payload)
+      .then((res)=>{
+        commit('loadPosts', res.data);
+      })
+      .catch(()=>
+      {
+      })
     }
   },
   uploadImages({ commit }, payload) {
