@@ -13,7 +13,7 @@ export const mutations = {
     state.imagePaths = [];
   },
   removeMainPost(state, payload) {
-    const index = state.mainPosts.findIndex(v => v.id === payload.id);
+    const index = state.mainPosts.findIndex(v => v.id === payload.postId);
     state.mainPosts.splice(index, 1);
   },
   loadComments(state, payload){
@@ -63,29 +63,43 @@ export const actions = {
 
       });
   },
-  loadComments({commit,state}, payload){
-    this.$axios.get(`http://localhost:3085/posts/${payload.postId}/comments`)
-    .then((res)=>{
-      commit('loadComments', res.data)
-    }).catch(()=>{
-
-    })
+  loadComments({ commit }, payload) {
+    this.$axios.get(`http://localhost:3085/post/${payload.postId}/comments`)
+      .then((res) => {
+        commit('loadComments', {
+          postId: payload.postId,
+          data: res.data,
+        });
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   },
   remove({ commit }, payload) {
-    commit('removeMainPost', payload);
+    this.$axios.delete(`http://localhost:3085/post/${payload.postId}`,{ // delete 할 땐 데이터가 없어서 그냥 세번째거 넣어줌
+      withCredentials: true,
+    })
+      .then(() => {
+        commit('removeMainPost', payload);
+      })
+      .catch(() => {
+
+      });
   },
+
   addComment({ commit }, payload) {
-    this.$axios.post(`http://localhost:3085/posts/${payload.postId}/comment`,{
-      content:payload.content,
-    },{
-      withCredentials:true
+    this.$axios.post(`http://localhost:3085/post/${payload.postId}/comment`, {
+      content: payload.content,
+    }, {
+      withCredentials: true,
     })
-    .then((res)=>{
-      commit('addComment', red.data);
-    })
-    .catch(()=>
-    {
-    })
+      .then((res) => {
+        console.log('addComment');
+        commit('addComment', res.data);
+      })
+      .catch(() => {
+
+      });
   },
   loadPosts({ commit, state }, payload) {
     if (state.hasMorePost) {

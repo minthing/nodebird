@@ -49,6 +49,7 @@
   </div>
 </template>
 
+
 <script>
   import CommentForm from '~/components/CommentForm';
   export default {
@@ -66,19 +67,24 @@
         commentOpened: false,
       };
     },
+    computed: {
+      me() {
+        return this.$store.state.users.me;
+      },
+    },
     methods: {
       onRemovePost() {
         this.$store.dispatch('posts/remove', {
-          id: this.post.id,
+          postId: this.post.id,
         });
       },
       onEditPost() {
       },
       onToggleComment() {
-        if(!this.commentOpened){
-          this.$store.dispatch('posts/locadComments', {
-            postId : this.post.id
-          })
+        if (!this.commentOpened) {
+          this.$store.dispatch('posts/loadComments', {
+            postId: this.post.id,
+          });
         }
         this.commentOpened = !this.commentOpened;
       },
@@ -87,8 +93,8 @@
 </script>
 
 <style scoped>
-a{
-  color:inherit;
-  text-decoration: no;
-}
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
 </style>

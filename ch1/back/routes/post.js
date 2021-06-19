@@ -79,31 +79,48 @@ router.post('/', isLoggedIn, async (req, res, next) => { // POST /post
   }
 });
 
+//router.patch('/:id')
+
+router.delete('/:id', async (req, res, next) => {
+  try {
+    await db.Post.destroy({
+      where: {
+        id: req.params.id,
+      },
+    });
+    res.send('삭제했습니다.');
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
+});
+
 
 // :id => 파라미터(어떤 게시글일지 모를 때 동적으로 바뀌는 부분을 비워준다!)
-router.post('/:id/comment', isLoggedIn, (req,res,next)=>{
-  try{
-    const post = await db.Post.findOne({ where : {id : req.params.id }});
-    if(!post){
-      return res.status(404).send('포스트가 존재하지 않습니다')
+router.post('/:id/comment', isLoggedIn, async (req, res, next) => { // POST /post/:id/comment
+  try {
+    const post = await db.Post.findOne({ where: { id: req.params.id } });
+    if (!post) {
+      return res.status(404).send('포스트가 존재하지 않습니다.');
     }
     const newComment = await db.Comment.create({
-      PostId : post.id,
+      PostId: post.id,
       UserId: req.user.id,
-      content: req.body.content
+      content: req.body.content,
     });
-    // await post.addComment(newComment.id);
-
     const comment = await db.Comment.findOne({
-      id:newComment.id
-    },
-    include[{ //프론트에 보내지는 정보
-      model:db.User,
-      attributes:['id', 'nickname']
-    }]);
-    return res.json(comment)
-  } catch(error){
-    next(error);
+      where: {
+        id: newComment.id,
+      },
+      include: [{
+        model: db.User,
+        attributes: ['id', 'nickname'],
+      }],
+    });
+    return res.json(comment);
+  } catch (err) {
+    console.error(err);
+    next(err);
   }
 });
 
