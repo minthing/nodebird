@@ -48,6 +48,11 @@ router.post('/', isNotLoggedIn, async (req, res, next) => { // 회원가입
   }
 });
 
+router.get('./login', isLoggedIn, (req,res, next)=>{
+  const user = req.user;
+  res.json(user);
+})
+
 router.post('/login', isNotLoggedIn, (req, res, next) => {
   passport.authenticate('local', (err, user, info) => {
     if (err) {

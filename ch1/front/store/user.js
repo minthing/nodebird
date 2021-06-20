@@ -53,6 +53,15 @@ export const mutations = {
 };
 
 export const actions = {
+  loadUser({commit, state}, payload) {
+    this.$axios.post('http://localhost:3085/user',{
+      withCredentials:true // 쿠키 생성 허용
+    }).then(()=>{
+      commit('setMe', res.data);
+    }).catch((error)=>{
+
+    })
+  },
   signUp({ commit, state }, payload) {
     this.$axios.post('http://localhost:3085/user', {
       email: payload.email,

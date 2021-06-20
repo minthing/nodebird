@@ -53,6 +53,9 @@ methods:{
     this.hashtag='';
   }
 },
+// fetch(){ // 실제 화면이 생성되기 전에 스토어를 채우는 역할 => layout에서는 fetch를 사용할 수 없음
+
+// }
 data(){
   return {
     hashtag:''
